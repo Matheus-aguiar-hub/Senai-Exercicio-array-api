@@ -190,6 +190,28 @@ function getEstadosRegiao (regiao) {
 
 }
 
+// function getCapitalPais (capital){
+
+//     let jsonCapital = {
+//         capitais: []
+//     }
+
+//     let status = false
+
+//     importandoEstados.listaDeEstados.estados.forEach(function(repeticaoCapital){
+
+//         //Fazendo com que ele encontre o objeto array
+//         if(repeticaoCapital.toUpperCase() == capital.toUpperCase()){
+//             status = true
+
+            
+
+//         }
+
+//     })
+
+// }
+
 // //Mostrando no terminal a lista dos estados, as siglas e quantidade
 console.log(getListaDeEstados())
 
@@ -201,3 +223,5 @@ console.log(getCapitalEstado('RJ'))
 
 //Mostrando no terminal a regiao, os estados delas e a capital
 console.log(getEstadosRegiao('Sul'))
+
+// console.log(getCapitalPais('capitais'))
