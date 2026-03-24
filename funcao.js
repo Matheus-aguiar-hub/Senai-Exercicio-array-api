@@ -114,10 +114,11 @@ function getCapitalEstado (uf) {
         //Defindo decisão para que encontre o array do estado e formatar em uma só linha
         if(repeticaoEstado.sigla.toUpperCase() == uf.toUpperCase()){
             arrayEstadoBrasil = {uf: repeticaoEstado.sigla, descricao: repeticaoEstado.nome, capital: repeticaoEstado.capital}
-        }
 
         //Defindo como verdadeiro caso ele encontre o item informado
         status = true
+        }
+
     })
 
     //Definindo como falso caso não encontre o estado informado
@@ -170,7 +171,7 @@ function getEstadosRegiao (regiao) {
                 //Adiciona os valores nome e capital no array e mostra eles formatados
                 jsonRegiaoEstados.estados.unshift({
                 //Nome do estado
-                uf: repeticaoRegiao.nome,
+                nome: repeticaoRegiao.nome,
                 //Capital estado
                 descricao: repeticaoRegiao.capital
 
@@ -206,8 +207,10 @@ function getCapitalPais (){
     capitais: []
     }
 
+    //Definindo se o usuario digitar algo incorreto
     let status = false
 
+    //Estrutura de repetição para informar a capital do país, nome, região, ano que foi a capital do país e o ano que deixou de ser a capital do país
     importandoEstados.listaDeEstados.estados.forEach(function(repeticaoCapital){
         
         //Fazendo com que ele encontre o objeto array capital do pais e o ano que foi a capital do país, caso encontre ele vai retornar os dados da capital do país
@@ -311,21 +314,57 @@ function getCidades(uf) {
 
 }
 
-
 //Mostrando no terminal a lista de estados e a quantidade de estados
+console.log('---------------------------------------------')
+console.log('           Quantidade de estados: ')
+console.log('---------------------------------------------')
+
 console.log(getListaDeEstados())
 
+console.log('')
+
 //Mostrando no terminal os dados do estado, como sigla, descrição, capital e região
+console.log('---------------------------------------------')
+console.log('           Dados do estado: ')
+console.log('---------------------------------------------')
+
 console.log(getDadosEstado('SP'))
 
-//Mostrando no terminal a descrição do estado em uma só linha
+console.log('')
+
+//Mostrando no terminal a capital do estado a partir da sigla do estado, mostrando a sigla, descrição e capital do estado
+console.log('---------------------------------------------')
+console.log('           Capital do estado: ') 
+console.log('---------------------------------------------')
+
 console.log(getCapitalEstado('RJ'))
 
+console.log('')
+
 //Mostrando no terminal a regiao, os estados delas e a capital
+console.log('---------------------------------------------')
+console.log('           Estados da região: ')
+console.log('---------------------------------------------')
+
 console.log(getEstadosRegiao('Sul'))
 
+console.log('')
+
 //Mostrando no terminal a capital do país, nome, região, ano que foi a capital do país e o ano que deixou de ser a capital do país
-console.log(getCapitalPais(''))
+console.log('---------------------------------------------')
+console.log('           Capital do país: ')
+console.log('---------------------------------------------')
+
+console.log(getCapitalPais())
+
+console.log('')
 
 //Mostrando no terminal as cidades de um estado a partir da sigla do estado mostrando a descrição do estado, a quantidade de cidades e o nome das cidades
+console.log('---------------------------------------------')
+console.log('           Cidades de um estado: ')
+console.log('---------------------------------------------')
+
 console.log(getCidades('AL'))
+
+console.log('---------------------------------------------')
+console.log('              Fim do programa              ')
