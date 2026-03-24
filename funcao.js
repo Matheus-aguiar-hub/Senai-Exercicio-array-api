@@ -48,7 +48,7 @@ Adicionando parâmetros para encontrar o array vazio
 Criando a estrutura de repetição que percorre o objeto dos estados
 Criando uma estrutura de decisão que iguala a repetição com a função para pegar o array que está vazio e formata em linhas
 Criando outra decisão caso o item informado não é encontrado fora da repetição
-Fazendo o retorno da função principal
+Retornando o objeto principal
 */
 
 //Adicionando função para pegar estados com um parametro que vai ser definido 
@@ -80,9 +80,9 @@ function getDadosEstado (uf) {
     }
     })
 
-    //Definindo como falso caso não encontre o item informado 
+    //Definindo como falso caso não encontre o estado informado 
     if(!status){
-        console.log('item não foi encontrado.')
+        console.log('Estado não foi encontrado.')
     }
 
     //Fazendo o retorno do objeto.
@@ -96,7 +96,7 @@ Adicionando parâmetros para encontrar o array vazio
 Criando a estrutura de repetição que percorre o objeto dos estados
 Criando uma estrutura de decisão que iguala a repetição com a função para pegar o array que está vazio e formata em uma só linha
 Criando outra decisão caso o item informado não é encontrado fora da repetição 
-Fazendo o retorno da função principal
+Retornando o objeto principal
 */
 
 //Criando função que vai encontrar e tratar os estados que o usuario quer 
@@ -120,9 +120,9 @@ function getCapitalEstado (uf) {
         status = true
     })
 
-    //Definindo como falso caso não encontre o item informado 
+    //Definindo como falso caso não encontre o estado informado
     if(!status){
-        console.log('item não foi encontrado.')
+        console.log('Estado não foi encontrado.')
     }
 
     //Fazendo o retorno para o objeto.
@@ -136,7 +136,7 @@ Adicionando parâmetros para encontrar o array vazio
 Criando a estrutura de repetição que percorre o objeto dos estados
 Criando uma estrutura de decisão que iguala a repetição com a função para pegar o array que está vazio e formata em uma só linha
 Criando outra decisão caso o item informado não é encontrado fora da repetição 
-Fazendo o retorno da função principal
+Retornando o objeto principal
 */
 
 //Função que pega os dados da região e defini um parâmetro de região que é usada após.
@@ -169,8 +169,6 @@ function getEstadosRegiao (regiao) {
 
                 //Adiciona os valores nome e capital no array e mostra eles formatados
                 jsonRegiaoEstados.estados.unshift({
-                
-                
                 //Nome do estado
                 uf: repeticaoRegiao.nome,
                 //Capital estado
@@ -180,9 +178,9 @@ function getEstadosRegiao (regiao) {
         }
     })
 
-    //Definindo como falso caso não encontre o item informado 
+    //Definindo como falso caso não encontre o estado informado 
     if(!status){
-        console.log('item não foi encontrado.')
+        console.log('Estado não foi encontrado.')
     }
     
     //Retornando o objeto.
@@ -190,38 +188,144 @@ function getEstadosRegiao (regiao) {
 
 }
 
-// function getCapitalPais (capital){
+/*
+Criando uma função que pega os dados da capital do país 
+Adicionando parâmetros para encontrar o array vazio
+Criando a estrutura de repetição que percorre o objeto dos estados
+Criando uma estrutura de decisão que iguala a repetição com a capital do pais e o inicio do ano que foi a capital do país sendo assim quem tiver esses
+dois itens vai mostrar os dados da capital do país, como nome, capital, região e o ano que foi a capital do país
+Criando outra decisão caso o item informado não é encontrado fora da repetição 
+Retornando o objeto principal
+*/
 
-//     let jsonCapital = {
-//         capitais: []
-//     }
+function getCapitalPais (){
 
-//     let status = false
+    //Json que vai pegar o que o usuário digitar e pegar a capital do país, nome, região, ano que foi a capital do país e o ano que deixou de ser a capital do país
+    let jsonCapital = {
+    //Aparece no array os estados
+    capitais: []
+    }
 
-//     importandoEstados.listaDeEstados.estados.forEach(function(repeticaoCapital){
+    let status = false
 
-//         //Fazendo com que ele encontre o objeto array
-//         if(repeticaoCapital.toUpperCase() == capital.toUpperCase()){
-//             status = true
+    importandoEstados.listaDeEstados.estados.forEach(function(repeticaoCapital){
+        
+        //Fazendo com que ele encontre o objeto array capital do pais e o ano que foi a capital do país, caso encontre ele vai retornar os dados da capital do país
+        if(repeticaoCapital.capital_pais && repeticaoCapital.capital_pais.ano_inicio){ 
+            //Caso o usuario digitar o que é certo ele vai retornar verdadeiro
+            status = true
 
+            //Adiciona os valores nome, capital, região e o ano que foi a capital do país no array e mostra eles formatados
+            jsonCapital.capitais.unshift({
+                //Nome do estado
+                uf: repeticaoCapital.sigla,
+                //Capital estado
+                descricao: repeticaoCapital.nome,
+                //Capital do país
+                capital: repeticaoCapital.capital,
+                //Região do estado
+                regiao: repeticaoCapital.regiao,
+                //Ano que foi a capital do país
+                capita_pais_ano_inicio: repeticaoCapital.capital_pais.ano_inicio,
+                //Ano que deixou de ser a capital do país
+                capita_pais_ano_fim: repeticaoCapital.capital_pais.ano_fim
+            })
+        }   
+    })
+
+    //Definindo como falso caso não encontre o item informado 
+    if(!status){
+        console.log('Capital não foi encontrado.')
+    }
+    
+    //Retornando o objeto.
+    return jsonCapital 
+
+}
+
+/*
+Fazendo uma função que vai mostrar as cidades de um estado a partir da sigla do estado mostrando a descrição do estado, a quantidade de cidades e o nome das cidades
+Adicionando parâmetros para encontrar o array vazio
+Criando a estrutura de repetição que percorre o objeto dos estados
+Criando uma estrutura de decisão que iguala a sigla do estado como o que o estado que o usuário digitar, consequentemente a descrição do estado, como nome e sigla, e a quantidade de cidades
+Criando outra decisão percorrendo o array cidades do estado e mostrando o nome das cidades
+Retornando o objeto principal
+*/
+
+function getCidades(uf) {
+
+    //Json que vai pegar o que o usuário digitar e pegar a sigla, descrição do estado, a quantidade de cidades e o nome das cidades
+    let jsonCidades = {
+        //Usuario digita a sigla do estado
+        uf: '',
+        //Aparece no array a descrição do estado, como nome e sigla, e a quantidade de cidades
+        descricao: {},
+        //Percorre no array estados e mostra o nome das cidades
+        cidades: []
+    }
+
+    //Definindo caso o usuario digitar algo que não foi encontrado
+    let status = false
+
+    //Estrutura de repetição para informar as cidades de acordo com que o usuario digitar a sigla do estado, consequentemente a descrição do estado, como nome e sigla, e a quantidade de cidades
+    importandoEstados.listaDeEstados.estados.forEach(function(repeticaoCidades){
+
+        //Fazendo a estrutura de decisão que irá chamar o json posteriormente
+        if(repeticaoCidades.sigla.toUpperCase() === uf.toUpperCase()){
+
+        //Caso o usuario digitar o que é certo ele vai retornar verdadeiro
+        status = true
+
+        //Igualando caso a sigla do estado que o usuário informar e percorre o objeto mostrando a sigla do estado
+        jsonCidades.uf = repeticaoCidades.sigla
+
+        //Adiciona os valores nome, sigla e a quantidade de cidades no array e mostra eles formatados
+        jsonCidades.descricao = {
+            //Sigla do estado
+            uf: repeticaoCidades.sigla,
+            //Nome do estado
+            descricao: repeticaoCidades.nome,
+            //quantidade de cidades
+            quantidade_cidades: repeticaoCidades.cidades.length
             
+        }
 
-//         }
+        //Percorre o array cidades do estado e mostra o nome das cidades
+        repeticaoCidades.cidades.forEach(function(repeticaoCidades2){
+            //Adiciona os valores nome das cidades no array e mostra eles formatados
+            jsonCidades.cidades.unshift({
+                //Nome da cidade
+                nome: repeticaoCidades2.nome
+            })
+        })  
+    }
+    })
 
-//     })
+    //Definindo como falso caso não encontre o item informado 
+    if(!status){
+        console.log('Estado não foi encontrado.')
+    }
+    
+    //Retornando o objeto.
+    return jsonCidades 
 
-// }
+}
 
-// //Mostrando no terminal a lista dos estados, as siglas e quantidade
+
+//Mostrando no terminal a lista de estados e a quantidade de estados
 console.log(getListaDeEstados())
 
-//Mostrando no terminal a descrição do estado em linhas
+//Mostrando no terminal os dados do estado, como sigla, descrição, capital e região
 console.log(getDadosEstado('SP'))
 
-//Mostrando no terminal a descrição do estado em uma única linha
+//Mostrando no terminal a descrição do estado em uma só linha
 console.log(getCapitalEstado('RJ'))
 
 //Mostrando no terminal a regiao, os estados delas e a capital
 console.log(getEstadosRegiao('Sul'))
 
-// console.log(getCapitalPais('capitais'))
+//Mostrando no terminal a capital do país, nome, região, ano que foi a capital do país e o ano que deixou de ser a capital do país
+console.log(getCapitalPais(''))
+
+//Mostrando no terminal as cidades de um estado a partir da sigla do estado mostrando a descrição do estado, a quantidade de cidades e o nome das cidades
+console.log(getCidades('AL'))
