@@ -16,30 +16,41 @@ Retorna formatado o objeto array que já está todos as siglas dentro junto com 
 */
 
 //Importando o objeto do estado
-const importandoEstados = require('./estados_cidades.js')
+const importandoEstados = require('../estados_cidades.js')
 
-//Função que retorna as siglas e o total de quantidade de estados
-function getListaDeEstados () {
-
+//Fazendo as requisições para pegar os dados dos estados, como sigla, nome, capital e região
+                            //Fazendo os endpoints de requisição e de resposta o que o servidor tudo que o cliente enviou para o servidor
+                                //Resposta do servidor para o usuário, ou seja, o que o servidor vai devolver para o usuário
+//Ou seja, o que o cliente pediu para o servidor e o que o servidor vai devolver para o cliente
+function getListaDeEstados (req, res) {
     //Criando uma variavel para um array vazio que vai ser usado para colocar as siglas
     let arraySiglaEstado = []
+
+    let status = false
     
     //Estrutura de repetição das siglas que vai mostrar todas as siglas que está dentro do objeto 
     importandoEstados.listaDeEstados.estados.forEach(function(retornoSiglaEstado) {
-
+        status = true
         //Fazendo com que as siglas retorne para a variável que está vazia
         //unshift retorna as siglas sempre para o começo do array, também pode ser usado o .push
         arraySiglaEstado.unshift(retornoSiglaEstado.sigla) 
 
     })
-
+    
     //Retornando as estruturas formatadas. 
-    return {
+    res.json ({  
         //Fazendo o return da vairavel siglaUF, que já vai está com as siglas dentro
         uf: arraySiglaEstado,
         //Retornando a quantidade de siglas que tem dentro do array siglasUF
         quantidade: arraySiglaEstado.length
+    })
+
+       if(!status){
+        return res.status(404).json({message: 'Estado não encontrado.'})   
     }
+
+    res.json(arraySiglaEstado)
+
 } 
 
 /*
@@ -51,8 +62,10 @@ Criando outra decisão caso o item informado não é encontrado fora da repetiç
 Retornando o objeto principal
 */
 
-//Adicionando função para pegar estados com um parametro que vai ser definido 
-function getDadosEstado (uf) {
+//
+function getDadosEstado (req, res) {
+
+    const uf = req.params.uf
 
     //Criando um Json vazio, que vai ter a estrutura do estado informado dentro dela
     let arrayEstado = []
@@ -82,11 +95,11 @@ function getDadosEstado (uf) {
 
     //Definindo como falso caso não encontre o estado informado 
     if(!status){
-        console.log('Estado não foi encontrado.')
+        return res.status(404).json({message: 'Estado não encontrado.'})   
     }
 
-    //Fazendo o retorno do objeto.
-    return arrayEstado
+    //
+    res.json(arrayEstado)
 
 }
 
@@ -99,8 +112,10 @@ Criando outra decisão caso o item informado não é encontrado fora da repetiç
 Retornando o objeto principal
 */
 
-//Criando função que vai encontrar e tratar os estados que o usuario quer 
-function getCapitalEstado (uf) {
+//
+function getCapitalEstado (req, res) {
+
+    const uf = req.params.uf
 
     //Array vazio para ser definido depois com os estados
     let arrayEstadoBrasil = []
@@ -123,11 +138,11 @@ function getCapitalEstado (uf) {
 
     //Definindo como falso caso não encontre o estado informado
     if(!status){
-        console.log('Estado não foi encontrado.')
+        return res.status(404).json({message: 'Estado não encontrado.'})   
     }
 
-    //Fazendo o retorno para o objeto.
-    return arrayEstadoBrasil
+    //
+    res.json(arrayEstadoBrasil)
 
 }
 
@@ -140,9 +155,10 @@ Criando outra decisão caso o item informado não é encontrado fora da repetiç
 Retornando o objeto principal
 */
 
-//Função que pega os dados da região e defini um parâmetro de região que é usada após.
-function getEstadosRegiao (regiao) {
+//
+function getEstadosRegiao (req, res) {
     
+    const regiao = req.params.regiao
 
     //Definindo se o usuario digitar algo incorreto
     let status = false
@@ -185,7 +201,7 @@ function getEstadosRegiao (regiao) {
     }
     
     //Retornando o objeto.
-    return jsonRegiaoEstados 
+    res.json(jsonRegiaoEstados)
 
 }
 
@@ -199,7 +215,8 @@ Criando outra decisão caso o item informado não é encontrado fora da repetiç
 Retornando o objeto principal
 */
 
-function getCapitalPais (){
+
+function getCapitalPais (req, res){
 
     //Json que vai pegar o que o usuário digitar e pegar a capital do país, nome, região, ano que foi a capital do país e o ano que deixou de ser a capital do país
     let jsonCapital = {
@@ -238,11 +255,11 @@ function getCapitalPais (){
 
     //Definindo como falso caso não encontre o item informado 
     if(!status){
-        console.log('Capital não foi encontrado.')
+        return res.status(404).json({message: 'Capital não foi encontrada.'})
     }
     
-    //Retornando o objeto.
-    return jsonCapital 
+    //
+    res.json(jsonCapital)
 
 }
 
@@ -255,7 +272,10 @@ Criando outra decisão percorrendo o array cidades do estado e mostrando o nome 
 Retornando o objeto principal
 */
 
-function getCidades(uf) {
+
+function getCidades(req, res) {
+
+    const uf = req.params.uf
 
     //Json que vai pegar o que o usuário digitar e pegar a sigla, descrição do estado, a quantidade de cidades e o nome das cidades
     let jsonCidades = {
@@ -306,65 +326,19 @@ function getCidades(uf) {
 
     //Definindo como falso caso não encontre o item informado 
     if(!status){
-        console.log('Estado não foi encontrado.')
+        return res.status(404).json({message: 'Estado não encontrado.'})    
     }
     
-    //Retornando o objeto.
-    return jsonCidades 
+    //
+    res.json(jsonCidades) 
 
 }
 
-//Mostrando no terminal a lista de estados e a quantidade de estados
-console.log('---------------------------------------------')
-console.log('           Quantidade de estados: ')
-console.log('---------------------------------------------')
-
-console.log(getListaDeEstados())
-
-console.log('')
-
-//Mostrando no terminal os dados do estado, como sigla, descrição, capital e região
-console.log('---------------------------------------------')
-console.log('           Dados do estado: ')
-console.log('---------------------------------------------')
-
-console.log(getDadosEstado('SP'))
-
-console.log('')
-
-//Mostrando no terminal a capital do estado a partir da sigla do estado, mostrando a sigla, descrição e capital do estado
-console.log('---------------------------------------------')
-console.log('           Capital do estado: ') 
-console.log('---------------------------------------------')
-
-console.log(getCapitalEstado('RJ'))
-
-console.log('')
-
-//Mostrando no terminal a regiao, os estados delas e a capital
-console.log('---------------------------------------------')
-console.log('           Estados da região: ')
-console.log('---------------------------------------------')
-
-console.log(getEstadosRegiao('Sul'))
-
-console.log('')
-
-//Mostrando no terminal a capital do país, nome, região, ano que foi a capital do país e o ano que deixou de ser a capital do país
-console.log('---------------------------------------------')
-console.log('           Capital do país: ')
-console.log('---------------------------------------------')
-
-console.log(getCapitalPais())
-
-console.log('')
-
-//Mostrando no terminal as cidades de um estado a partir da sigla do estado mostrando a descrição do estado, a quantidade de cidades e o nome das cidades
-console.log('---------------------------------------------')
-console.log('           Cidades de um estado: ')
-console.log('---------------------------------------------')
-
-console.log(getCidades('AL'))
-
-console.log('---------------------------------------------')
-console.log('              Fim do programa              ')
+module.exports = {  
+getListaDeEstados,
+getDadosEstado,
+getCapitalEstado,
+getEstadosRegiao,
+getCapitalPais,
+getCidades
+}

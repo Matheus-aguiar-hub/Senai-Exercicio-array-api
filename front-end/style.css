@@ -1,0 +1,518 @@
+/* =============================================
+   VARIÁVEIS E RESET
+   ============================================= */
+:root {
+  --verde:       #00b37e;
+  --verde-dark:  #007f58;
+  --amarelo:     #f7c948;
+  --azul:        #003580;
+  --bg:          #0a0e1a;
+  --bg2:         #111827;
+  --bg3:         #1a2235;
+  --texto:       #e8eaf0;
+  --texto-muted: #7a8099;
+  --borda:       #1e2d45;
+  --radius:      12px;
+  --radius-sm:   8px;
+  --sombra:      0 4px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--texto);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* =============================================
+   HEADER
+   ============================================= */
+.header {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 48px 56px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 50%, rgba(0,179,126,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 90% 20%, rgba(0,53,128,0.2) 0%, transparent 70%),
+    linear-gradient(160deg, #0a0e1a 0%, #0d1520 100%);
+  z-index: 0;
+}
+
+/* grade sutil */
+.header-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.header-content { position: relative; z-index: 1; max-width: 900px; }
+
+.header-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 8px;
+  border: 1px solid rgba(0,179,126,0.3);
+  padding: 4px 12px;
+  border-radius: 99px;
+}
+
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 12vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 0 80px rgba(0,179,126,0.2);
+}
+
+.header-sub {
+  margin-top: 16px;
+  font-size: 16px;
+  color: var(--texto-muted);
+  font-weight: 300;
+}
+
+.header-counter {
+  position: absolute;
+  bottom: 24px;
+  right: 48px;
+  z-index: 1;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  color: var(--verde);
+  opacity: 0.7;
+}
+
+/* =============================================
+   NAV TABS
+   ============================================= */
+.nav {
+  display: flex;
+  gap: 4px;
+  padding: 16px 48px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--borda);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--texto-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  color: var(--texto);
+  border-color: var(--borda);
+  background: var(--bg3);
+}
+
+.nav-btn.active {
+  background: var(--verde);
+  color: #000;
+  border-color: var(--verde);
+  font-weight: 600;
+}
+
+/* =============================================
+   MAIN / PANELS
+   ============================================= */
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 48px 80px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-header { margin-bottom: 32px; }
+.panel-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.panel-header p {
+  margin-top: 6px;
+  color: var(--texto-muted);
+  font-size: 14px;
+}
+
+/* =============================================
+   GRID DE SIGLAS
+   ============================================= */
+.siglas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 12px;
+}
+
+.sigla-item {
+  background: var(--bg3);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 16px 8px;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: var(--verde);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sigla-item:hover {
+  background: var(--verde);
+  color: #000;
+  border-color: var(--verde);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,179,126,0.25);
+}
+
+/* =============================================
+   INPUT GROUP
+   ============================================= */
+.input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.input-field {
+  flex: 1;
+  max-width: 200px;
+  background: var(--bg3);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius-sm);
+  color: var(--texto);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.1em;
+  padding: 12px 20px;
+  outline: none;
+  text-transform: uppercase;
+  transition: border-color 0.2s;
+}
+
+.input-field::placeholder {
+  color: var(--texto-muted);
+  font-size: 18px;
+}
+
+.input-field:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,179,126,0.15);
+}
+
+.btn-buscar {
+  background: var(--verde);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-buscar:hover { background: var(--verde-dark); color: #fff; }
+.btn-buscar:active { transform: scale(0.97); }
+
+/* =============================================
+   BOTÕES DE REGIÃO
+   ============================================= */
+.regioes-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.btn-regiao {
+  background: var(--bg3);
+  border: 1px solid var(--borda);
+  border-radius: 99px;
+  color: var(--texto);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-regiao:hover,
+.btn-regiao.ativo {
+  background: var(--amarelo);
+  color: #000;
+  border-color: var(--amarelo);
+  font-weight: 600;
+}
+
+/* =============================================
+   CARDS DE RESULTADO
+   ============================================= */
+.resultado-card { min-height: 60px; }
+
+.card {
+  background: var(--bg3);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  animation: fadeIn 0.25s ease;
+}
+
+.card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-title .badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(0,179,126,0.15);
+  color: var(--verde);
+  border: 1px solid rgba(0,179,126,0.3);
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.card-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.card-row:last-child { border-bottom: none; }
+
+.card-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-muted);
+  min-width: 120px;
+}
+
+.card-value {
+  font-size: 15px;
+  color: var(--texto);
+  font-weight: 400;
+}
+
+.card-value.destaque {
+  color: var(--verde);
+  font-weight: 500;
+}
+
+/* Grid de cidades */
+.cidades-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cidades-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: var(--verde);
+  line-height: 1;
+}
+
+.cidades-count span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--texto-muted);
+  display: block;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.cidades-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--borda) transparent;
+}
+
+.cidade-item {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--texto-muted);
+  transition: all 0.15s;
+}
+
+.cidade-item:hover {
+  color: var(--texto);
+  border-color: var(--verde);
+  background: rgba(0,179,126,0.05);
+}
+
+/* Grid de estados da região */
+.estados-regiao-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.estado-regiao-item {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.estado-regiao-nome {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--texto);
+}
+
+.estado-regiao-capital {
+  font-size: 12px;
+  color: var(--texto-muted);
+  margin-top: 2px;
+}
+
+/* Capitais históricas */
+.capitais-lista { display: flex; flex-direction: column; gap: 16px; }
+
+.capital-historica {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  transition: border-color 0.2s;
+}
+
+.capital-historica:hover { border-color: var(--amarelo); }
+
+.capital-historica-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.capital-historica-info p {
+  font-size: 13px;
+  color: var(--texto-muted);
+  margin-top: 2px;
+}
+
+.capital-historica-periodo {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.capital-historica-periodo .anos {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: var(--amarelo);
+  letter-spacing: 0.06em;
+}
+
+.capital-historica-periodo .duracao {
+  font-size: 11px;
+  color: var(--texto-muted);
+  margin-top: 2px;
+}
+
+/* =============================================
+   ESTADOS ESPECIAIS
+   ============================================= */
+.loading {
+  color: var(--texto-muted);
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+.erro {
+  color: #f87171;
+  background: rgba(248,113,113,0.08);
+  border: 1px solid rgba(248,113,113,0.2);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  font-size: 14px;
+}
+
+/* =============================================
+   RESPONSIVO
+   ============================================= */
+@media (max-width: 640px) {
+  .header { padding: 48px 24px 40px; }
+  .header-counter { right: 24px; }
+  .nav { padding: 12px 24px; }
+  .main { padding: 32px 24px 60px; }
+  .input-group { flex-direction: column; }
+  .input-field { max-width: 100%; }
+  .capital-historica { flex-direction: column; align-items: flex-start; }
+  .capital-historica-periodo { text-align: left; }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brasil — Explorador de Estados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-bg"></div>
+    <div class="header-content">
+      <span class="header-eyebrow">Explorador</span>
+      <h1 class="header-title">Brasil</h1>
+      <p class="header-sub">Consulte estados, capitais, regiões e cidades</p>
+    </div>
+    <div class="header-counter" id="headerCounter">— estados</div>
+  </header>
+
+  <!-- NAV TABS -->
+  <nav class="nav">
+    <button class="nav-btn active" data-tab="estados">Todos os Estados</button>
+    <button class="nav-btn" data-tab="estado">Dados do Estado</button>
+    <button class="nav-btn" data-tab="capital">Capital</button>
+    <button class="nav-btn" data-tab="regiao">Região</button>
+    <button class="nav-btn" data-tab="cidades">Cidades</button>
+    <button class="nav-btn" data-tab="capitais-pais">Capitais Históricas</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TAB: TODOS OS ESTADOS -->
+    <section class="tab-panel active" id="tab-estados">
+      <div class="panel-header">
+        <h2>Siglas dos Estados</h2>
+        <p>Lista completa das unidades federativas</p>
+      </div>
+      <div class="siglas-grid" id="siglasGrid">
+        <div class="loading">Carregando...</div>
+      </div>
+    </section>
+
+    <!-- TAB: DADOS DO ESTADO -->
+    <section class="tab-panel" id="tab-estado">
+      <div class="panel-header">
+        <h2>Dados do Estado</h2>
+        <p>Digite a sigla para consultar informações completas</p>
+      </div>
+      <div class="input-group">
+        <input type="text" id="inputEstado" class="input-field" placeholder="Ex: SP" maxlength="2" />
+        <button class="btn-buscar" onclick="buscarDadosEstado()">Buscar</button>
+      </div>
+      <div class="resultado-card" id="resultadoEstado"></div>
+    </section>
+
+    <!-- TAB: CAPITAL -->
+    <section class="tab-panel" id="tab-capital">
+      <div class="panel-header">
+        <h2>Capital do Estado</h2>
+        <p>Consulte qual é a capital de um estado</p>
+      </div>
+      <div class="input-group">
+        <input type="text" id="inputCapital" class="input-field" placeholder="Ex: RJ" maxlength="2" />
+        <button class="btn-buscar" onclick="buscarCapital()">Buscar</button>
+      </div>
+      <div class="resultado-card" id="resultadoCapital"></div>
+    </section>
+
+    <!-- TAB: REGIÃO -->
+    <section class="tab-panel" id="tab-regiao">
+      <div class="panel-header">
+        <h2>Estados por Região</h2>
+        <p>Selecione uma região para ver seus estados</p>
+      </div>
+      <div class="regioes-btns">
+        <button class="btn-regiao" onclick="buscarRegiao('Norte')">Norte</button>
+        <button class="btn-regiao" onclick="buscarRegiao('Nordeste')">Nordeste</button>
+        <button class="btn-regiao" onclick="buscarRegiao('Centro-Oeste')">Centro-Oeste</button>
+        <button class="btn-regiao" onclick="buscarRegiao('Sudeste')">Sudeste</button>
+        <button class="btn-regiao" onclick="buscarRegiao('Sul')">Sul</button>
+      </div>
+      <div class="resultado-card" id="resultadoRegiao"></div>
+    </section>
+
+    <!-- TAB: CIDADES -->
+    <section class="tab-panel" id="tab-cidades">
+      <div class="panel-header">
+        <h2>Cidades do Estado</h2>
+        <p>Digite a sigla para listar todas as cidades</p>
+      </div>
+      <div class="input-group">
+        <input type="text" id="inputCidades" class="input-field" placeholder="Ex: AL" maxlength="2" />
+        <button class="btn-buscar" onclick="buscarCidades()">Buscar</button>
+      </div>
+      <div class="resultado-card" id="resultadoCidades"></div>
+    </section>
+
+    <!-- TAB: CAPITAIS HISTÓRICAS -->
+    <section class="tab-panel" id="tab-capitais-pais">
+      <div class="panel-header">
+        <h2>Capitais Históricas do Brasil</h2>
+        <p>Cidades que já foram capital do país</p>
+      </div>
+      <div class="resultado-card" id="resultadoCapitaisPais">
+        <div class="loading">Carregando...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
